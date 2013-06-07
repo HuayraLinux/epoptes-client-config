@@ -1,0 +1,14 @@
+Source: epoptes-client-config
+Section: admin
+Priority: extra
+Maintainer: Fernando Toledo <ragnarok@docksud.com.ar>
+Build-Depends: debhelper (>= 8.0.0)
+Standards-Version: 3.9.4
+Homepage: https://github.com/huayralinux/epoptes-client-config
+Vcs-Git: https://github.com/HuayraLinux/epoptes-client-config.git
+
+Package: epoptes-client-config
+Architecture: all
+Depends: ${misc:Depends},policykit-1, bash, zenity
+Description: Configuración del cliente Epoptes
+ Script de configuración para el cliente de epoptes

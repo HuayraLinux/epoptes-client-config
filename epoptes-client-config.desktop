@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Epoptes (Estudiantes)
+Comment=Configurar el nombre del servidor en el cliente Epoptes
+Exec=gksudo /usr/sbin/epoptes-client-config
+Terminal=false
+Type=Application
+Icon=epoptes-client-config
+Categories=Huayra;

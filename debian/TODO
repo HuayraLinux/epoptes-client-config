@@ -1,0 +1,5 @@
+ToDO
+====
+
+ * polkit: Convertir el script para usar pkexec
+ * verificar dependencias (epoptes-client?)

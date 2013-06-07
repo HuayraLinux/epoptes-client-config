@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE policyconfig PUBLIC
+	  "-//freedesktop//DTD PolicyKit Policy Configuration 1.0//EN"
+	  "http://www.freedesktop.org/standards/PolicyKit/1.0/policyconfig.dtd">
+<policyconfig>
+
+  <vendor>Huayra GNU/Linux</vendor>
+  <vendor_url>http://www.conectarigualdad.gob.ar/</vendor_url>
+  <icon_name>preferences-system-network</icon_name>
+
+  <action id="ar.gob.conectarigualdad.epoptes-client-config">
+    <description>Configurar cliente Epoptes</description>
+    <message>Configurar cliente Epoptes</message>
+    <defaults>
+      <allow_inactive>no</allow_inactive>
+      <allow_active>auth_admin_keep</allow_active>
+    </defaults>
+    <annotate key="org.freedesktop.policykit.exec.path">/usr/sbin/epoptes-client-config</annotate>
+    <annotate key="org.freedesktop.policykit.exec.allow_gui">true</annotate>
+  </action>
+
+</policyconfig>

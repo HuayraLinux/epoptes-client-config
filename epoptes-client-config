@@ -18,6 +18,9 @@ if [ $? = 0 ]; then
 		#descargando certificado del server
 		/usr/sbin/epoptes-client -c | zenity --progress --pulsate --text "Descargando ceritificado del servidor..." --auto-close --no-cancel
 		if [ ${PIPESTATUS[0]} = 0 ]; then
+			# Activa autostart nuevamente.
+			sed -i '/X-MATE-Autostart-enabled/d' ~/autostart/epoptes-client.desktop
+
 			zenity --info --text "El cliente Epoptes ha sido configurado\nPor favor vuelva a iniciar su sesión." --title "Cliente de Epoptes"
 		else
 			zenity --warning --text "No fue posible bajar el certificado del servidor Epoptes [$NUEVO].\n\nPor favor, compruebe el nombre o dirección IP y asegúrese de que en la netbook del docente se esté ejecutando el servidor Epoptes. \n\nPara más información, consulte la ayuda de Huayra."
@@ -25,4 +28,3 @@ if [ $? = 0 ]; then
 	fi
 
 fi
-

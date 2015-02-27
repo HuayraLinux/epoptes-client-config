@@ -1,30 +1,21 @@
 #!/bin/bash
 set -x
 CONF='/etc/default/epoptes-client'
-
+AUTOSTART="$HOME/.config/autostart/epoptes-client.desktop"
 ACTUAL=`grep SERVER= $CONF |sed 's/#//'|cut -d "=" -f 2`
-NUEVO=`zenity --entry --text="Ingrese el nombre de la netbook del docente o dirección IP" --entry-text=$ACTUAL --title "Configurar Epoptes"`
+
+NUEVO=`zenity --entry --text="Ingrese el nombre de la netbook del docente o dirección IP\n(Dejelo en blanco para desactivar el cliente de Epoptes)" --entry-text=$ACTUAL --title "Configurar Epoptes"`
 if [ $? = 0 ]; then
-
 	if [ "$NUEVO" = "" ]; then
-		zenity --info --text "Debe ingresar un nombre o dirección IP"
-	else
-		#quitando comentario si tiene
-		sed "s/#SERVER=/SERVER=/" -i $CONF
+		zenity --question --text="¿Está seguro de que queres desactivar Epoptes?"
+		if [ $? == 0 ]; then
+			# Desactiva autostart.
+			sed -i '/X-MATE-Autostart-enabled/d' $AUTOSTART
+			sed -i '$a X-MATE-Autostart-enabled=false' $AUTOSTART
 
-		#remplazando variable
-		sed "s/SERVER=$ACTUAL/SERVER=$NUEVO/" -i $CONF
-
-		#descargando certificado del server
-		/usr/sbin/epoptes-client -c | zenity --progress --pulsate --text "Descargando ceritificado del servidor..." --auto-close --no-cancel
-		if [ ${PIPESTATUS[0]} = 0 ]; then
-			# Activa autostart nuevamente.
-			sed -i '/X-MATE-Autostart-enabled/d' ~/autostart/epoptes-client.desktop
-
-			zenity --info --text "El cliente Epoptes ha sido configurado\nPor favor vuelva a iniciar su sesión." --title "Cliente de Epoptes"
-		else
-			zenity --warning --text "No fue posible bajar el certificado del servidor Epoptes [$NUEVO].\n\nPor favor, compruebe el nombre o dirección IP y asegúrese de que en la netbook del docente se esté ejecutando el servidor Epoptes. \n\nPara más información, consulte la ayuda de Huayra."
+			zenity --info --text "El cliente Epoptes ha sido desactivado\nPor favor vuelva a iniciar su sesión." --title "Cliente de Epoptes"
 		fi
+	else
+		gksudo epoptes-client-get-cert $CONF $ACTUAL $NUEVO $AUTOSTART
 	fi
-
 fi

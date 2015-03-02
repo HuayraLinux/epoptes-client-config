@@ -1,4 +1,5 @@
 epoptes-client-config usr/sbin/
+epoptes-client-get-cert usr/sbin/
 epoptes-client-config.desktop usr/share/applications/
 epoptes-client-config.svg usr/share/icons/hicolor/scalable/apps/
 debian/ar.gob.conectarigualdad.epoptes-client-config.policy usr/share/polkit-1/actions/

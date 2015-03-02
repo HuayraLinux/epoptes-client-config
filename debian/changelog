@@ -1,3 +1,9 @@
+epoptes-client-config (1.5) torbellino; urgency=low
+
+  * D'Oh!. Agregra script faltante.
+
+ -- Matias De lellis <mati86dl@gmail.com>  Mon, 02 Mar 2015 09:13:18 -0300
+
 epoptes-client-config (1.4) torbellino; urgency=low
 
   * Permite desactivar el autostart, y lo desactiva automaticamente en

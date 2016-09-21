@@ -12,16 +12,23 @@ sed "s/SERVER=$ACTUAL/SERVER=$NUEVO/" -i $CONF
 
 #descargando certificado del server
 /usr/sbin/epoptes-client -c | zenity --progress --pulsate --text "Descargando ceritificado del servidor..." --auto-close --no-cancel
+
 if [ ${PIPESTATUS[0]} = 0 ]; then 
 	# Activa autostart nuevamente.
 	sed -i '/X-MATE-Autostart-enabled/d' $AUTOSTART
 	sed -i '$a X-MATE-Autostart-enabled=true' $AUTOSTART
+
+	sed -i '/X-GNOME-Autostart-enabled/d' $AUTOSTART
+	sed -i '$a X-GNOME-Autostart-enabled=true' $AUTOSTART
 
 	zenity --info --text "El cliente Epoptes ha sido configurado\nPor favor vuelva a iniciar su sesión." --title "Cliente de Epoptes"
 else
 	# Desactiva autostart en caso de error.
 	sed -i '/X-MATE-Autostart-enabled/d' $AUTOSTART
 	sed -i '$a X-MATE-Autostart-enabled=false' $AUTOSTART
+
+	sed -i '/X-GNOME-Autostart-enabled/d' $AUTOSTART
+	sed -i '$a X-GNOME-Autostart-enabled=false' $AUTOSTART
 
 	zenity --warning --text "No fue posible bajar el certificado del servidor Epoptes [$NUEVO].\n\nPor favor, compruebe el nombre o dirección IP y asegúrese de que en la netbook del docente se esté ejecutando el servidor Epoptes. \n\nPara más información, consulte la ayuda de Huayra."
 fi

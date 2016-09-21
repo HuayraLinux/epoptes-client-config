@@ -1,17 +1,29 @@
 #!/bin/bash
 set -x
 CONF='/etc/default/epoptes-client'
+XDG_AUTOSTART="/etc/xdg/autostart/epoptes-client.desktop"
+AUTOSTART_FOLDER="$HOME/.config/autostart/"
 AUTOSTART="$HOME/.config/autostart/epoptes-client.desktop"
+
 ACTUAL=`grep SERVER= $CONF |sed 's/#//'|cut -d "=" -f 2`
+
+if [ ! -f $AUTOSTART ]; then
+	mkdir -p $AUTOSTART_FOLDER
+	cp $XDG_AUTOSTART $AUTOSTART
+fi
 
 NUEVO=`zenity --entry --text="Ingrese el nombre de la netbook del docente o dirección IP\n(Dejelo en blanco para desactivar el cliente de Epoptes)" --entry-text=$ACTUAL --title "Configurar Epoptes"`
 if [ $? = 0 ]; then
 	if [ "$NUEVO" = "" ]; then
 		zenity --question --text="¿Está seguro de que queres desactivar Epoptes?"
 		if [ $? == 0 ]; then
-			# Desactiva autostart.
+			# Desactiva autostart en Mate.
 			sed -i '/X-MATE-Autostart-enabled/d' $AUTOSTART
 			sed -i '$a X-MATE-Autostart-enabled=false' $AUTOSTART
+
+			# Desactiva autostart en Gnome.
+			sed -i '/X-GNOME-Autostart-enabled/d' $AUTOSTART
+			sed -i '$a X-GNOME-Autostart-enabled=false' $AUTOSTART
 
 			zenity --info --text "El cliente Epoptes ha sido desactivado\nPor favor vuelva a iniciar su sesión." --title "Cliente de Epoptes"
 		fi

@@ -1,3 +1,16 @@
+epoptes-client-config (1.7) torbellino; urgency=medium
+
+  * D'Oh!. Fix scripts.
+
+ -- Matias De lellis <mati86dl@gmail.com>  Wed, 21 Sep 2016 10:48:53 -0300
+
+epoptes-client-config (1.6) torbellino; urgency=medium
+
+  * Agrega soporte para el autostart de gnome.
+  * Copia el archivo autostart desde xdg al usuario.
+
+ -- Matias De lellis <mati86dl@gmail.com>  Wed, 21 Sep 2016 10:23:10 -0300
+
 epoptes-client-config (1.5) torbellino; urgency=low
 
   * D'Oh!. Agregra script faltante.
